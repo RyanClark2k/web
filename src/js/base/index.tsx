@@ -1,6 +1,6 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom"
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { fas } from "@fortawesome/free-solid-svg-icons"
 import { far } from "@fortawesome/free-regular-svg-icons"
@@ -10,7 +10,7 @@ import {
   useCallback,
   useDispatch,
   Provider,
-  createStore,
+  configureStore,
   useSelector,
   useState,
   useEffect,
@@ -27,6 +27,17 @@ import {
 } from "../api/get_login_status"
 import { rootReducer, AppState } from "./reducers"
 import setData from "./actions"
+
+function PageNotFound() {
+  return (
+    <>
+      <h1>404: Page Not Found</h1>
+      <p>
+        The page you requested does not exist. Please return to the <Link to="/">home page</Link>.
+      </p>
+    </>
+  )
+}
 
 interface BaseProps {
   children: React.ReactElement | React.ReactElement[]
@@ -90,9 +101,17 @@ function Base(props: BaseProps) {
       <LoginModal show={showLoginModal} onHide={hideLoginModal} isSignUp={isSignUp} />
       <Navbar bg="primary" variant="dark">
         <Container>
-          <Navbar.Brand href="/">Agora</Navbar.Brand>
+          <Navbar.Brand>
+            <Link to="/" className="unstyled-link">
+              Agora
+            </Link>
+          </Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/about">About</Nav.Link>
+            <Nav.Link>
+              <Link to="/about" className="unstyled-link">
+                About
+              </Link>
+            </Nav.Link>
             {user ? (
               <div className="login">
                 <Dropdown
@@ -135,23 +154,26 @@ const ROUTES = {
   "/about": About,
 }
 
-const store = createStore(rootReducer)
+const store = configureStore({ reducer: rootReducer })
 
 library.add(fas, far)
 
 ReactDOM.render(
   <Provider store={store}>
-    <Base>
-      <Router>
+    <Router>
+      <Base>
         <Routes>
-          <Route path="/" element={<Home />} index />
-          {Object.keys(ROUTES).map((route) => {
-            const Component = ROUTES[route]
-            return <Route path={route} key={route} element={<Component />} />
-          })}
+          <Route path="/">
+            <Route index element={<Home />} />
+            {Object.keys(ROUTES).map((route) => {
+              const Component = ROUTES[route]
+              return <Route path={route} key={route} element={<Component />} />
+            })}
+          </Route>
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
-      </Router>
-    </Base>
+      </Base>
+    </Router>
   </Provider>,
   document.getElementById("root"),
 )

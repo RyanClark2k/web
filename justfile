@@ -10,4 +10,3 @@ run-backend:
 validate-repo:
    npx eslint . --ext .jsx --ext .js --ext .ts --ext .tsx
    npx stylelint "{src,config}/**/*.{css,scss,sass}" --config .stylelintrc.json
-

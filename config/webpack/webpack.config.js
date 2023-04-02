@@ -42,7 +42,7 @@ module.exports = {
     ],
   },
   resolve: {
-    modules: ["node_modules", path.resolve(__dirname, "../../src")],
+    modules: ["node_modules", path.resolve(__dirname, "../../src/js")],
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     alias: {
       react: path.resolve(__dirname, "../../node_modules", "react"),

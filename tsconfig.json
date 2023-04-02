@@ -2,6 +2,6 @@
   "compilerOptions": {
     "jsx": "react"
   },
-  "include": ["src/**/*", "config/webpack/*"],
+  "include": ["src/js/**/*", "config/webpack/*"],
   "exclude": ["node_modules"]
 }

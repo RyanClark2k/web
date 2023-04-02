@@ -107,11 +107,11 @@ function Base(props: BaseProps) {
             </Link>
           </Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link>
+            <div className="nav-link">
               <Link to="/about" className="unstyled-link">
                 About
               </Link>
-            </Nav.Link>
+            </div>
             {user ? (
               <div className="login">
                 <Dropdown

@@ -1,5 +1,5 @@
 setup-frontend:
-  npm i
+  pnpm i
 
 run-frontend:
   cd config/webpack && npx webpack serve

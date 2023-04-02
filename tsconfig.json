@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "jsx": "react"
+    "jsx": "react",
+    "lib": ["dom", "es2015"],
   },
   "include": ["src/js/**/*", "config/webpack/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }
